@@ -1,18 +1,22 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import {Link} from 'react-router-dom';
 
-const BookingForm = () => {
+const BookingForm = ({
+	availableTimes,
+	setAvailableTimes,
+	isReserved,
+	setIsReserved,
+}) => {
 	const [date, setDate] = useState('');
-	const [availableTimes, setAvailableTimes] = useState('17:00');
+	// const [state, dispatch] = useReducer(reducerMethod, initialValue)
 	const [guests, setGuests] = useState(1);
 	const [occasion, setOccasion] = useState('Birthday');
 	const [name, setName] = useState('');
-	const [isReserved, setIsReserved] = useState(false);
 
-	const handleSubmit = e => {
-		e.preventDefault();
-		setIsReserved(true);
-	};
+	// const handleSubmit = e => {
+	// 	e.preventDefault();
+	// 	setIsReserved(true);
+	// };
 
 	if (isReserved) {
 		return (
@@ -106,7 +110,11 @@ const BookingForm = () => {
 						<option value="Anniversary">Anniversary</option>
 					</select>
 				</div>
-				<button className="btn" type="submit" onClick={handleSubmit}>
+				<button
+					className="btn"
+					type="submit"
+					onClick={e => (e.preventDefault(), setIsReserved(true))}
+				>
 					Make Your reservation
 				</button>
 			</form>
